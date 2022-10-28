@@ -1,4 +1,5 @@
 package model;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +16,7 @@ public class AuthorTest {
     @Test
     void testConstructor() {
         assertEquals("Omid", testAuthor.getName());
-        assertEquals(1,testAuthor.getCells().size());
+        assertEquals(1, testAuthor.getCells().size());
     }
 
     @Test
@@ -37,5 +38,15 @@ public class AuthorTest {
         testAuthor.getRootCell().like();
         testAuthor.getRootCell().like();
         assertEquals(testAuthor.getRootCell(), testAuthor.getMostLikedCell());
+    }
+
+    @Test
+    void testSetCurrentCell() {
+        assertEquals(testAuthor.getCurrentCell(), testAuthor.getCells().get(0));
+        Cell testCell = new Cell(testAuthor.getName(), "test content");
+        testAuthor.getCells().add(testCell);
+        testAuthor.setCurrentCell(testCell);
+        assertEquals(2, testAuthor.getCells().size());
+        assertEquals(testAuthor.getCurrentCell(), testAuthor.getCells().get(1));
     }
 }

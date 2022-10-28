@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 // Represents an author having a name, list of cells, current cell and a rootCell
 public class Author implements Writable {
-    private String name;
+    private  String name;
     private ArrayList<Cell> cells;
     private Cell currentCell;
     private Cell rootCell;
@@ -24,7 +24,7 @@ public class Author implements Writable {
      */
     public Author(String name) {
         this.name = name;
-        this.cells = new ArrayList<Cell>();
+        this.cells = new ArrayList<>();
         this.rootCell = new Cell(this.name, "Once Upon A Time...");
         this.cells.add(rootCell);
         this.currentCell = rootCell;
@@ -58,6 +58,8 @@ public class Author implements Writable {
     }
 
 
+    //Source of this function is from UBC CPSC210 jsonExample repository
+    //link of the repository: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -66,6 +68,8 @@ public class Author implements Writable {
         return json;
     }
 
+    //Source of this function is from UBC CPSC210 jsonExample repository
+    //link of the repository: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     // EFFECTS: returns things in this workroom as a JSON array
     private JSONArray cellsToJson() {
         JSONArray jsonArray = new JSONArray();

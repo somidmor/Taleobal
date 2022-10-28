@@ -1,7 +1,10 @@
+//Source of this file is from UBC CPSC210 jsonExample repository
+//link of the repository: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+
 package persistence;
 
 import model.Author;
-import model.Cell;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,7 +24,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads workroom from file and returns it;
+    // EFFECTS: reads author from file and returns it;
     // throws IOException if an error occurs reading data from file
     public Author read() throws IOException {
         String jsonData = readFile(source);
@@ -40,7 +43,7 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
-    // EFFECTS: parses workroom from JSON object and returns it
+    // EFFECTS: parses author from JSON object and returns it
     private Author parseAuthor(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Author author = new Author(name);
@@ -49,7 +52,7 @@ public class JsonReader {
     }
 
     // MODIFIES: author
-    // EFFECTS: parses thingies from JSON object and adds them to workroom
+    // EFFECTS: parses Cells from JSON object and adds them to author
     private void addCells(Author author, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("cells");
         for (Object json : jsonArray) {
@@ -58,11 +61,10 @@ public class JsonReader {
         }
     }
 
-    // MODIFIES: wr
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // MODIFIES: author
+    // EFFECTS: parses Cell from JSON object and adds it to author
     private void addCell(Author author, JSONObject jsonObject) {
         String content = jsonObject.getString("content");
-        Cell cell = new Cell(author.getName(), content);
         author.addCell(content);
     }
 }

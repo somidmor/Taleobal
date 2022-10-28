@@ -89,15 +89,15 @@ public class TaleobalApp {
             System.out.println("\t" + index + ". " + cell.getContent());
             index += 1;
         }
-        System.out.println("\ta: Add new tale");
         if (author.getCurrentCell().getPreCell() != null) {
-            System.out.println("\te: edit this tale");
+            System.out.print("\te: edit this tale\t\t\t\t\t");
         }
-        System.out.println("\tl: Like this tale");
-        System.out.println("\ts: See the most liked tale");
-        System.out.println("\tr: Go to the root (Once Upon A Time...)");
-        System.out.println("\ts: Save current tale to file");
+        System.out.println("\ta: Add new tale");
+        System.out.print("\tk: Like this tale\t\t\t\t\t");
+        System.out.println("\tm: See the most liked tale");
+        System.out.print("\ts: Save current tale to file\t\t");
         System.out.println("\tl: Load tale from the file");
+        System.out.println("\tr: Go to the root (Once Upon A Time...)");
         System.out.println("\tq: Quit the program");
         System.out.print("Select one of the options above: ");
     }
@@ -151,16 +151,18 @@ public class TaleobalApp {
             String newContent = input.next();
             author.getCurrentCell().setContent(newContent);
         } else if (command.equals("s")) {
-            saveWorkRoom();
+            saveAuthor();
         } else if (command.equals("l")) {
-            loadWorkRoom();
+            loadAuthor();
         } else {
             chooseCell(command);
         }
     }
 
+    //Source of this function is from UBC CPSC210 jsonExample repository
+    //link of the repository: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     // EFFECTS: saves the Author to file
-    private void saveWorkRoom() {
+    private void saveAuthor() {
         try {
             jsonWriter.open();
             jsonWriter.write(author);
@@ -169,12 +171,14 @@ public class TaleobalApp {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to write to file: " + JSON_STORE);
         }
-        System.out.println("Load was successful");
+        System.out.println("Save was successful");
     }
 
+    //Source of this function is from UBC CPSC210 jsonExample repository
+    //link of the repository: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
     // MODIFIES: this
     // EFFECTS: loads Author from file
-    private void loadWorkRoom() {
+    private void loadAuthor() {
         try {
             author = jsonReader.read();
             System.out.println("Loaded " + author.getName() + " from " + JSON_STORE);

@@ -42,4 +42,11 @@ public class CellTest {
         assertEquals(2, testCell.getNumberOfLikes());
     }
 
+    @Test
+    void testSetContent() {
+        assertEquals("test case 1", testCell.getContent());
+        testCell.setContent("test case 2");
+        assertEquals("test case 2", testCell.getContent());
+    }
+
 }

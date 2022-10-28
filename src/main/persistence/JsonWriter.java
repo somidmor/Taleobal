@@ -1,3 +1,6 @@
+//Source of this file is from UBC CPSC210 jsonExample repository
+//link of the repository: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+
 package persistence;
 
 import model.Author;
@@ -26,7 +29,7 @@ public class JsonWriter {
     }
 
     // MODIFIES: this
-    // EFFECTS: writes JSON representation of workroom to file
+    // EFFECTS: writes JSON representation of author to file
     public void write(Author author) {
         JSONObject json = author.toJson();
         saveToFile(json.toString(TAB));

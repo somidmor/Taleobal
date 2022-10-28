@@ -33,5 +33,5 @@ of stories.
 - As a user, I want to be able to like a story.
 - As a user, I want to be able to see the most liked story.
 - As a user, I want to be able to edit my story.
-- As a user, I want to be able to save a story in a file with a name.
-- As a user, I want to be able to load my stories.
+- As a user, I want to be able to save my story.
+- As a user, I want to be able to load my story.
