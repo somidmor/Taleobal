@@ -1,13 +1,17 @@
 {
-    "cells": [
-        {
-            "id": "ef214041-e3a5-4985-aacb-4e51ec663d88",
-            "content": "Content 1"
-        },
-        {
-            "id": "41e41658-e0ff-4dfc-be0b-1926f5169a86",
-            "content": "Content 2"
-        }
-    ],
-    "name": "Test Case"
+  "cells": [
+    {
+      "preCellID": "0",
+      "id": "5fd7265b-5d6a-4be3-8049-ef98d80bd43a",
+      "content": "Content 1",
+      "likes": 0
+    },
+    {
+      "preCellID": "5fd7265b-5d6a-4be3-8049-ef98d80bd43a",
+      "id": "1ab30932-05d7-46c4-a330-d56e282d7a87",
+      "content": "Content 2",
+      "likes": 0
+    }
+  ],
+  "name": "Test Case"
 }

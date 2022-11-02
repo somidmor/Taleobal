@@ -26,6 +26,7 @@ public class Author implements Writable {
         this.name = name;
         this.cells = new ArrayList<>();
         this.rootCell = new Cell(this.name, "Once Upon A Time...");
+        rootCell.setCellID("0");
         this.cells.add(rootCell);
         this.currentCell = rootCell;
     }
@@ -38,6 +39,19 @@ public class Author implements Writable {
      */
     public void addCell(String content) {
         Cell newCell = new Cell(this.name, content, currentCell);
+        this.currentCell = newCell;
+        this.cells.add(newCell);
+    }
+
+
+    /*
+     * REQUIRES: preCellID, has a non-zero length
+     * MODIFIES: this
+     * EFFECTS: new cell with the content is created
+     * the new cell is added to the cell lists and set to currentCell
+     */
+    public void addCell(String preCellID, String cellID, String content, int numberOfLikes) {
+        Cell newCell = new Cell(this.name, preCellID, cellID, content, numberOfLikes);
         this.currentCell = newCell;
         this.cells.add(newCell);
     }

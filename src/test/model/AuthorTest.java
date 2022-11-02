@@ -26,12 +26,20 @@ public class AuthorTest {
         assertEquals("test case 1", testAuthor.getCells().get(1).getContent());
         assertEquals(testAuthor.getCurrentCell(), testAuthor.getCells().get(1));
         assertEquals(testAuthor.getCurrentCell(), testAuthor.getRootCell().getNextCellsList().get(0));
+
+        testAuthor.addCell("preCellID", "cellID", "test case 2", 0);
+        assertEquals(3, testAuthor.getCells().size());
+        assertEquals("preCellID", testAuthor.getCells().get(2).getPreCellID());
+        assertEquals("cellID", testAuthor.getCells().get(2).getCellID());
+        assertEquals("test case 2", testAuthor.getCells().get(2).getContent());
+        assertEquals(0, testAuthor.getCells().get(2).getNumberOfLikes());
+        assertEquals(testAuthor.getCurrentCell(), testAuthor.getCells().get(2));
+
     }
 
     @Test
     void testGetMostLikedCell() {
         testAuthor.addCell("test case 1");
-        System.out.println(testAuthor.getCells().size());
         assertEquals(testAuthor.getRootCell(), testAuthor.getMostLikedCell());
         testAuthor.getCurrentCell().like();
         assertEquals(testAuthor.getCurrentCell(), testAuthor.getMostLikedCell());

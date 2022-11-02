@@ -14,8 +14,9 @@ public class Cell implements Writable {
     private int numberOfLikes;
     private String author;
     private ArrayList<Cell> nextCellsList;
-    private Cell preCell;
     private String content;
+    private Cell preCell;
+    private String preCellID;
 
     /*
      * REQUIRES: author and content have a non-zero length
@@ -35,13 +36,29 @@ public class Cell implements Writable {
      * REQUIRES: author and content have a non-zero length
      * EFFECTS: author on cell is set to author and the content is set to content
      * creates an empty list for the next cells and set the number of likes to zero
-     * it sets the precell to the cell it gets in inputs.
-     * it sets the next cell of the precell to current cell
+     * it sets the preCell to the cell it gets in inputs.
+     * it sets the next cell of the preCell to current cell
      */
     public Cell(String author, String content, Cell preCell) {
         this(author, content);
         this.preCell = preCell;
         this.preCell.getNextCellsList().add(this);
+    }
+
+    /*
+     * REQUIRES: author, PreCellID, CellID, content and number of likes.
+     * EFFECTS: author on cell is set to author and the content is set to content
+     * preCellID of the cell is set to preCellID and cellID is set to cellID
+     * number of likes of the cell is also set to numberOfLikes
+     * creates an empty list for the next cells and set the number of likes to zero
+     */
+    public Cell(String author, String preCellID, String cellID, String content, int numberOfLikes) {
+        this.author = author;
+        this.preCellID = preCellID;
+        this.cellID = cellID;
+        this.content = content;
+        this.numberOfLikes = numberOfLikes;
+        this.nextCellsList = new ArrayList<>();
     }
 
 
@@ -60,12 +77,34 @@ public class Cell implements Writable {
         JSONObject json = new JSONObject();
         json.put("id", cellID);
         json.put("content", content);
+        json.put("likes", numberOfLikes);
+        if (preCell == null) {
+            json.put("preCellID", "0");
+        } else {
+            json.put("preCellID", preCell.cellID);
+        }
         return json;
     }
 
     //getters and setters
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setPreCell(Cell preCell) {
+        this.preCell = preCell;
+    }
+
+//    public void setPreCellID(String preCellID) {
+//        this.preCellID = preCellID;
+//    }
+
+    public void setCellID(String cellID) {
+        this.cellID = cellID;
+    }
+
+    public String getPreCellID() {
+        return preCellID;
     }
 
     public ArrayList<Cell> getNextCellsList() {
@@ -88,7 +127,13 @@ public class Cell implements Writable {
         return preCell;
     }
 
-//    public String getCellID() {
-//        return cellID;
+    public String getCellID() {
+        return cellID;
+    }
+
+//    @Override
+//    public String toString() {
+//        String result = preCellID + "\n" + cellID + "\n" + content + "\n" + numberOfLikes + "\n";
+//        return result;
 //    }
 }

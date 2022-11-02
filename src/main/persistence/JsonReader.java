@@ -6,6 +6,7 @@ package persistence;
 import model.Author;
 
 
+import model.Cell;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -59,12 +60,35 @@ public class JsonReader {
             JSONObject nextCell = (JSONObject) json;
             addCell(author, nextCell);
         }
+        reorganizeCells(author);
     }
 
     // MODIFIES: author
     // EFFECTS: parses Cell from JSON object and adds it to author
     private void addCell(Author author, JSONObject jsonObject) {
+        String preCellID = jsonObject.getString("preCellID");
+        String cellID = jsonObject.getString("id");
         String content = jsonObject.getString("content");
-        author.addCell(content);
+        int numberOfLikes = jsonObject.getInt("likes");
+        author.addCell(preCellID, cellID, content, numberOfLikes);
     }
+
+    // MODIFIES: author
+    // EFFECTS: reorganize all the cells of the author base on their IDs
+    // it put the cells in the correct position in hierarchy
+    private void reorganizeCells(Author author) {
+        for (Cell cell: author.getCells()) {
+            String cellID = cell.getCellID();
+            for (Cell innerCell: author.getCells()) {
+                String preCellID = innerCell.getPreCellID();
+                if (cellID.equals(preCellID)) {
+                    cell.getNextCellsList().add(innerCell);
+                    innerCell.setPreCell(cell);
+                }
+            }
+        }
+        author.setCurrentCell(author.getRootCell());
+    }
+
+
 }
