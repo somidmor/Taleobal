@@ -35,3 +35,12 @@ of stories.
 - As a user, I want to be able to edit my story.
 - As a user, I want to be able to save my story.
 - As a user, I want to be able to load my story.
+
+## Instructions for Grader:
+- You can generate the first required event related to adding a tale to main window by pressing add button
+- You can generate the first required event related to going to root cell by pressing root button
+- you can like a specific tale by pressing like button
+- you can see the most liked cell by pressing the most liked
+- You can save the state of my application by pressing save button
+- You can reload the state of my application by pressing load button
+- The visual component is changing color of each cell by pressing the change color button

@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
+/* Represents a Graphical menu which has 8 buttons an arraylist of buttons and a GridBagConstraints
+ */
 public class GraphicalMenu extends JDesktopPane {
     private Button addButton = new Button("add");
     private Button editButton = new Button("edit");
@@ -16,6 +18,10 @@ public class GraphicalMenu extends JDesktopPane {
     private ArrayList<Button> buttons = new ArrayList<Button>();
     private GridBagConstraints gc;
 
+    /*
+     * MODIFIES:
+     * EFFECTS: construct the menu which has 8 buttons and put the buttons in their location
+     */
     public GraphicalMenu(Dimension dimension) {
         super();
         Dimension size = new Dimension(dimension.width, dimension.height / 10);
@@ -32,6 +38,10 @@ public class GraphicalMenu extends JDesktopPane {
         }
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: set up the Grid bag constraints
+     */
     private void setUpGridBagConstraints() {
         gc = new GridBagConstraints();
         gc.gridx = 0;
@@ -41,6 +51,10 @@ public class GraphicalMenu extends JDesktopPane {
         gc.fill = GridBagConstraints.NONE;
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: add all the buttons to the list of buttons
+     */
     private void addButtonToButtons() {
         buttons.add(addButton);
         buttons.add(editButton);
@@ -52,6 +66,7 @@ public class GraphicalMenu extends JDesktopPane {
         buttons.add(quitButton);
     }
 
+    //getters
     public Button getAddButton() {
         return addButton;
     }

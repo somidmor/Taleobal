@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 /* Represents a cell having an author name, list of the next cells, the cell before,
-* total number of likes for the cell, ID and the content in the cell
-*/
+ * total number of likes for the cell, ID and the content in the cell
+ */
 public class Cell implements Writable {
     private String cellID;
     private int numberOfLikes;
@@ -95,9 +95,6 @@ public class Cell implements Writable {
         this.preCell = preCell;
     }
 
-//    public void setPreCellID(String preCellID) {
-//        this.preCellID = preCellID;
-//    }
 
     public void setCellID(String cellID) {
         this.cellID = cellID;
@@ -130,10 +127,4 @@ public class Cell implements Writable {
     public String getCellID() {
         return cellID;
     }
-
-//    @Override
-//    public String toString() {
-//        String result = preCellID + "\n" + cellID + "\n" + content + "\n" + numberOfLikes + "\n";
-//        return result;
-//    }
 }

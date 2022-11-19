@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 // represent Taleobal application with an author
@@ -38,81 +39,14 @@ public class TaleobalApp extends JFrame {
 
     /*
      * MODIFIES: this
-     * EFFECTS: initials the setup of the application and displays the menu
-     * and process the user input
-     */
-    private void runApp() {
-        setUp();
-//        String command;
-//        boolean shouldRun = true;
-//        while (shouldRun) {
-//            showCellMenu();
-//            command = input.next();
-//            command = command.toLowerCase();
-//            if (command.equals("q")) {
-//                shouldRun = false;
-//                System.out.println("See you soon " + author.getName() + " ;)");
-//            } else {
-//                try {
-//                    processCommand(command);
-//                } catch (NumberFormatException e) {
-//                    System.out.println("\n\n\n");
-//                    System.out.println("Opps! Did you select a correct option? Lets Try again");
-//                } catch (IndexOutOfBoundsException e) {
-//                    System.out.println("\n\n\n");
-//                    System.out.println("Opps! Did you select a correct Number? Lets Try again");
-//                }
-//            }
-//        }
-    }
-
-    /*
-     * MODIFIES: this
      * EFFECTS: display the first steps of the application
      * it gets name as an input from user at it set the author name
      */
-    private void setUp() {
+    private void runApp() {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-//        input = new Scanner(System.in);
-//        input.useDelimiter("\n");
-//        System.out.println("Hello Human");
-//        System.out.println("Here You Can Create Your New World.");
-//        System.out.println("Lets begin with your name.");
-//        System.out.print("Who Are U?: ");
-//        String name = input.next();
         this.author = new Author("omid");
-//        System.out.println("Well Done!, Welcome To Your World " + name + ".");
         setUpMainWindow();
-    }
-
-    /*
-     * EFFECTS: display the menu and all the available options for the user
-     */
-    private void showCellMenu() {
-        Cell currentCell = author.getCurrentCell();
-        System.out.println("**************************************");
-        System.out.println(getStory());
-        //System.out.println(currentCell.getContent());
-        System.out.println("(Likes: " + author.getCurrentCell().getNumberOfLikes() + ")");
-        System.out.println("**************************************");
-
-        int index = 1;
-        for (Cell cell : currentCell.getNextCellsList()) {
-            System.out.println("\t" + index + ". " + cell.getContent());
-            index += 1;
-        }
-        if (author.getCurrentCell().getPreCell() != null) {
-            System.out.print("\te: edit this tale\t\t\t\t\t");
-        }
-        System.out.println("\ta: Add new tale");
-        System.out.print("\tk: Like this tale\t\t\t\t\t");
-        System.out.println("\tm: See the most liked tale");
-        System.out.print("\ts: Save current tale to file\t\t");
-        System.out.println("\tl: Load tale from the file");
-        System.out.println("\tr: Go to the root (Once Upon A Time...)");
-        System.out.println("\tq: Quit the program");
-        System.out.print("Select one of the options above: ");
     }
 
     /*
@@ -133,48 +67,6 @@ public class TaleobalApp extends JFrame {
         }
         return result.append(author.getCurrentCell().getContent()).toString();
     }
-
-    /*
-     * MODIFIES: this
-     * EFFECTS: the chosen cell by the user will set to the current cell
-     */
-//    private void chooseCell(String command) {
-//        int cellIndex = Integer.parseInt(command) - 1;
-//        Cell currentCell = author.getCurrentCell().getNextCellsList().get(cellIndex);
-//        author.setCurrentCell(currentCell);
-//    }
-
-    /*
-     * REQUIRES: command has a non-zero length
-     * MODIFIES: this
-     * EFFECTS: process the command it gets
-     */
-//    private void processCommand(String command) {
-//        if (command.equals("a")) {
-//            System.out.println("\n\n\n\n\n\n\n\n\nContinue your Tale!");
-//            System.out.println(getStory());
-//            //System.out.println(author.getCurrentCell().getContent());
-//            String newTale = input.next();
-//            author.addCell(newTale);
-//        } else if (command.equals("r")) {
-//            author.setCurrentCell(author.getRootCell());
-//        } else if (command.equals("k")) {
-//            author.getCurrentCell().like();
-//        } else if (command.equals("m")) {
-//            author.setCurrentCell(author.getMostLikedCell());
-//        } else if (command.equals("e") && author.getCurrentCell().getPreCell() != null) {
-//            System.out.print("old: " + author.getCurrentCell().getContent() + "\nnew: ");
-//            String newContent = input.next();
-//            author.getCurrentCell().setContent(newContent);
-//        } else if (command.equals("s")) {
-//            saveAuthor();
-//        } else if (command.equals("l")) {
-//            loadAuthor();
-//        } else {
-//            chooseCell(command);
-//        }
-//        updateMainWindow();
-//    }
 
     //Source of this function is from UBC CPSC210 jsonExample repository
     //link of the repository: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
@@ -205,6 +97,11 @@ public class TaleobalApp extends JFrame {
         System.out.println("Load was successful");
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: set up the main window with three part:
+     * storyline at top, tale space at middle and buttons at bottom
+     */
     private void setUpMainWindow() {
         main = new JFrame("Taleobal");
         main.setSize(dimension);
@@ -233,26 +130,50 @@ public class TaleobalApp extends JFrame {
         updateMainWindow();
     }
 
+    /*
+     * EFFECTS: update the main window with new values
+     */
     private void updateMainWindow() {
         updateStoryLine();
         updateMiddle();
     }
 
+    /*
+     * EFFECTS: update the story line part of the main window with new values
+     */
     private void updateStoryLine() {
         storyLine.setText(getStory());
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: remove all the cells from the middle part and load the window with proper cells
+     */
     private void updateMiddle() {
         middle.removeAll();
         for (Cell cell : author.getCurrentCell().getNextCellsList()) {
             GraphicalCell graphicalCell = new GraphicalCell(cell);
+            graphicalCell.setBackground(randomColor());
             middle.add(graphicalCell);
             setActionCellSelectButton(graphicalCell);
         }
         middle.revalidate();
     }
 
+    /*
+     * EFFECTS: it generates and return a random bright color with rgb greater than 150
+     */
+    public static Color randomColor() {
+        int red = (int) (Math.random() * 100) + 150;
+        int green = (int) (Math.random() * 100) + 150;
+        int blue = (int) (Math.random() * 100) + 150;
+        return new Color(red, green, blue);
+    }
 
+
+    /*
+     * EFFECTS: set up all the action functions for the buttons
+     */
     public void setAllActions() {
         setActionLikeButton();
         setActionMostLikeButton();
@@ -264,6 +185,11 @@ public class TaleobalApp extends JFrame {
         setActionEditButton();
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: increase number of likes of the current cell by one when the button is clicked
+     */
     public void setActionLikeButton() {
         menu.getLikeButton().addActionListener(new ActionListener() {
             @Override
@@ -274,6 +200,10 @@ public class TaleobalApp extends JFrame {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: set the current cell to the cell with most like when button is clicked
+     */
     public void setActionMostLikeButton() {
         menu.getSeeMostLikedButton().addActionListener(new ActionListener() {
             @Override
@@ -284,6 +214,10 @@ public class TaleobalApp extends JFrame {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: change the current cell to root and goes to the beginning of the story when button is clicked
+     */
     public void setActionGoToRootButton() {
         menu.getGoToRootButton().addActionListener(new ActionListener() {
             @Override
@@ -294,26 +228,37 @@ public class TaleobalApp extends JFrame {
         });
     }
 
+    /*
+     * EFFECTS: save the data of the application in a new file when button is clicked
+     */
     public void setActionSaveButton() {
         menu.getSaveButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveAuthor();
                 updateMainWindow();
+                JOptionPane.showMessageDialog(main, "Save was Successful");
             }
         });
     }
 
+    /*
+     * EFFECTS: load the story from the file when button is clicked
+     */
     public void setActionLoadButton() {
         menu.getLoadButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 loadAuthor();
                 updateMainWindow();
+                JOptionPane.showMessageDialog(main, "Load was Successful");
             }
         });
     }
 
+    /*
+     * EFFECTS: stops everything and closes the program when button is clicked
+     */
     public void setActionQuitButton() {
         menu.getQuitButton().addActionListener(new ActionListener() {
             @Override
@@ -323,6 +268,11 @@ public class TaleobalApp extends JFrame {
         });
     }
 
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: set the current cell to the selected cell when button is clicked
+     */
     public void setActionCellSelectButton(GraphicalCell graphicalCell) {
         graphicalCell.getSelectButton().addActionListener(new ActionListener() {
             @Override
@@ -333,6 +283,10 @@ public class TaleobalApp extends JFrame {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: opens a popup window and asks user to insert a new story for the new cell when button is clicked
+     */
     public void setActionAddButton() {
         menu.getAddButton().addActionListener(new ActionListener() {
             @Override
@@ -345,6 +299,10 @@ public class TaleobalApp extends JFrame {
         });
     }
 
+    /*
+     * MODIFIES: this
+     * EFFECTS: open a popup window and asks user to edit the current when button is clicked
+     */
     public void setActionEditButton() {
         menu.getEditButton().addActionListener(new ActionListener() {
             @Override
