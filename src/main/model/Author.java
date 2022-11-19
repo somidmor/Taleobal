@@ -25,7 +25,7 @@ public class Author implements Writable {
     public Author(String name) {
         this.name = name;
         this.cells = new ArrayList<>();
-        this.rootCell = new Cell(this.name, "Once Upon A Time...");
+        this.rootCell = new Cell(this.name, "Once Upon A Time");
         rootCell.setCellID("0");
         this.cells.add(rootCell);
         this.currentCell = rootCell;
