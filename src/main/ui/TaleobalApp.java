@@ -5,6 +5,7 @@ import model.Cell;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
@@ -12,6 +13,7 @@ import javax.swing.text.StyledDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -108,9 +110,7 @@ public class TaleobalApp extends JFrame {
         main.setVisible(true);
         main.setLayout(new GridLayout(3, 0));
 
-        middle = new JPanel();
-        middle.setVisible(true);
-        middle.setLayout(new GridLayout(0, 3));
+        setUpMiddleWindow();
 
         menu = new GraphicalMenu(dimension);
         storyLine = new JTextPane();
@@ -139,6 +139,23 @@ public class TaleobalApp extends JFrame {
     }
 
     /*
+     * EFFECTS: set up the middle window with a background image and
+     * set the layout to grid lay out and set it visible
+     */
+    private void setUpMiddleWindow() {
+        Image image = null;
+        try {
+            image = ImageIO.read(new File("data/RainbowGradientOverlay13.jpg"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        middle = new ImagePanel(image);
+        middle.setVisible(true);
+        middle.setLayout(new GridLayout(0, 3));
+    }
+
+    /*
      * EFFECTS: update the story line part of the main window with new values
      */
     private void updateStoryLine() {
@@ -153,7 +170,7 @@ public class TaleobalApp extends JFrame {
         middle.removeAll();
         for (Cell cell : author.getCurrentCell().getNextCellsList()) {
             GraphicalCell graphicalCell = new GraphicalCell(cell);
-            graphicalCell.setBackground(randomColor());
+            //graphicalCell.setBackground(randomColor());
             middle.add(graphicalCell);
             setActionCellSelectButton(graphicalCell);
         }
