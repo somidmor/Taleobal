@@ -4,6 +4,8 @@
 package persistence;
 
 import model.Author;
+import model.Event;
+import model.EventLog;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -39,6 +41,8 @@ public class JsonWriter {
     // EFFECTS: closes writer
     public void close() {
         writer.close();
+        String logString = "saving data to file.";
+        EventLog.getInstance().logEvent(new Event(logString));
     }
 
     // MODIFIES: this

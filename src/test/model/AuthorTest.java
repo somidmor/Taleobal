@@ -3,6 +3,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AuthorTest {
@@ -11,6 +14,7 @@ public class AuthorTest {
     @BeforeEach
     void runBefore() {
         testAuthor = new Author("Omid");
+        EventLog.getInstance().clear();
     }
 
     @Test
@@ -56,5 +60,42 @@ public class AuthorTest {
         testAuthor.setCurrentCell(testCell);
         assertEquals(2, testAuthor.getCells().size());
         assertEquals(testAuthor.getCurrentCell(), testAuthor.getCells().get(1));
+    }
+
+    @Test
+    void testCreateAuthorEventLog() {
+        testAuthor = new Author("Omid");
+
+        List<Event> events = new ArrayList<Event>();
+
+        EventLog eventLog = EventLog.getInstance();
+        for (Event next : eventLog) {
+            events.add(next);
+        }
+
+        String logString = "New author Omid has been created.";
+        assertEquals(logString, events.get(1).getDescription());
+    }
+
+    @Test
+    void testAddCellEventLog()  {
+        testAuthor.addCell("test case 1");
+        Cell testCell = testAuthor.getCurrentCell();
+        String cellID = testCell.getCellID();
+        String name = testAuthor.getName();
+
+        testAuthor.addCell("0", "1", "test case 2", 5);
+
+        List<Event> events = new ArrayList<Event>();
+
+        EventLog eventLog = EventLog.getInstance();
+        for (Event next : eventLog) {
+            events.add(next);
+        }
+
+        String logString1 = "Cell ID: " + cellID + " has been added to author " + name;
+        String logString2 = "Cell ID: 1 has been added to author " + name;
+        assertEquals(logString1, events.get(1).getDescription());
+        assertEquals(logString2, events.get(2).getDescription());
     }
 }

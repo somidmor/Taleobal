@@ -3,6 +3,7 @@ package model;
 import org.json.JSONObject;
 import persistence.Writable;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -64,10 +65,11 @@ public class Cell implements Writable {
 
     /*
      * MODIFIES: this
-     * EFFECTS: increase the number of likes of the cell by 1
+     * EFFECTS: increase the number of likes of the cell by 1 and creates the proper log
      */
     public void like() {
         this.numberOfLikes++;
+        EventLog.getInstance().logEvent(new Event("Cell with ID " + this.cellID + " has been liked."));
     }
 
     //Source of this function is from UBC CPSC210 jsonExample repository

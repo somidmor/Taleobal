@@ -44,3 +44,11 @@ of stories.
 - You can save the state of my application by pressing save button
 - You can reload the state of my application by pressing load button
 - The visual component is changing color of each cell by pressing the change color button
+
+## Phase 4: Task 2:
+- when you run the application a new author is created with the log below:
+  - New author omid has been created.
+- When you add a new tale the below log will be created:
+  - Cell ID: xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx has been added to author omid
+- When you like a tale the below log will be created:
+  - Cell with ID xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx has been liked.

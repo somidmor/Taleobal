@@ -20,7 +20,7 @@ public class Author implements Writable {
      * EFFECTS: name on account is set to name; a new arraylist
      * for cells is created; the root cell with the sentence: Once upon a Time
      * is created and set to rootCell.
-     * rootCell is added to the list of cells and current cell
+     * rootCell is added to the list of cells and current cell and creates the proper log
      */
     public Author(String name) {
         this.name = name;
@@ -29,18 +29,22 @@ public class Author implements Writable {
         rootCell.setCellID("0");
         this.cells.add(rootCell);
         this.currentCell = rootCell;
+        String logString = "New author " + this.name + " has been created.";
+        EventLog.getInstance().logEvent(new Event(logString));
     }
 
     /*
      * REQUIRES: content has a non-zero length
      * MODIFIES: this
      * EFFECTS: new cell with the content is created
-     * the new cell is added to the cell lists and set to currentCell
+     * the new cell is added to the cell lists and set to currentCell and creates the proper log
      */
     public void addCell(String content) {
         Cell newCell = new Cell(this.name, content, currentCell);
         this.currentCell = newCell;
         this.cells.add(newCell);
+        String logString = "Cell ID: " + newCell.getCellID() + " has been added to author " + this.name;
+        EventLog.getInstance().logEvent(new Event(logString));
     }
 
 
@@ -48,12 +52,14 @@ public class Author implements Writable {
      * REQUIRES: preCellID, has a non-zero length
      * MODIFIES: this
      * EFFECTS: new cell with the content is created
-     * the new cell is added to the cell lists and set to currentCell
+     * the new cell is added to the cell lists and set to currentCell and creates the proper log
      */
     public void addCell(String preCellID, String cellID, String content, int numberOfLikes) {
         Cell newCell = new Cell(this.name, preCellID, cellID, content, numberOfLikes);
         this.currentCell = newCell;
         this.cells.add(newCell);
+        String logString = "Cell ID: " + newCell.getCellID() + " has been added to author " + this.name;
+        EventLog.getInstance().logEvent(new Event(logString));
     }
 
 

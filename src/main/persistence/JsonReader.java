@@ -7,6 +7,8 @@ import model.Author;
 
 
 import model.Cell;
+import model.Event;
+import model.EventLog;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -30,6 +32,8 @@ public class JsonReader {
     public Author read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
+        String logString = "Loading data from file.";
+        EventLog.getInstance().logEvent(new Event(logString));
         return parseAuthor(jsonObject);
     }
 

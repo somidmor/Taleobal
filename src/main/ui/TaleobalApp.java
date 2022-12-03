@@ -2,6 +2,8 @@ package ui;
 
 import model.Author;
 import model.Cell;
+import model.Event;
+import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -280,6 +282,7 @@ public class TaleobalApp extends JFrame {
         menu.getQuitButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                printLog();
                 System.exit(0);
             }
         });
@@ -332,5 +335,17 @@ public class TaleobalApp extends JFrame {
                 updateMainWindow();
             }
         });
+    }
+
+
+    /*
+     * EFFECTS: Print all the logs stored in event log
+     */
+    public void printLog() {
+        EventLog eventLog = EventLog.getInstance();
+        for (Event next : eventLog) {
+            System.out.println(next.toString());
+        }
+
     }
 }

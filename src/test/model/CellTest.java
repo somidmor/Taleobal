@@ -2,6 +2,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CellTest {
@@ -10,6 +13,7 @@ public class CellTest {
     @BeforeEach
     void runBefore() {
         testCell = new Cell("omid", "test case 1");
+        EventLog.getInstance().clear();
 
     }
 
@@ -70,6 +74,22 @@ public class CellTest {
     void testSetCellID() {
         testCell.setCellID("newCellID");
         assertEquals("newCellID", testCell.getCellID());
+    }
+
+    @Test
+    void testLikeCellEventLog()  {
+        testCell.like();
+
+
+        List<Event> events = new ArrayList<Event>();
+
+        EventLog eventLog = EventLog.getInstance();
+        for (Event next : eventLog) {
+            events.add(next);
+        }
+
+        String logString1 = "Cell with ID " + testCell.getCellID()+ " has been liked.";
+        assertEquals(logString1, events.get(1).getDescription());
     }
 
 }
