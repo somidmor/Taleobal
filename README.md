@@ -52,3 +52,7 @@ of stories.
   - Cell ID: xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx has been added to author omid
 - When you like a tale the below log will be created:
   - Cell with ID xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx has been liked.
+
+## Phase 4: Task 3:
+If I had more time working on my project, I'd have created a bidirectional relation between cell and author.
+Also, I'd have created new functions in Taleobal class to make it more readable. 
